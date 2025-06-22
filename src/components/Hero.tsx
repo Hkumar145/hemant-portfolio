@@ -1,4 +1,6 @@
+'use client'
 import Image from 'next/image';
+import { TypeAnimation } from 'react-type-animation';
 
 export default function Hero() {
   return (
@@ -8,7 +10,17 @@ export default function Hero() {
           {/* Text Column */}
           <div className="md:w-1/2 text-center md:text-left mb-8 md:mb-0">
             <h2 className="text-4xl md:text-5xl font-bold mb-4">Hi, I&apos;m Hemant Kumar</h2>
-            <p className="text-xl mb-6">A passionate Next.js developer building modern web applications.</p>
+            <p className="text-xl mb-6">
+              <TypeAnimation
+                sequence={[
+                  'A passionate developer building modern web and mobile applications.',
+                  1000, // Wait 1s after typing
+                ]}
+                wrapper="span"
+                speed={30} // Typing speed (lower is faster)
+                repeat={10} // Loop the animation continuously
+              />
+            </p>
             <a
               href="#projects"
               className="inline-block bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100"
