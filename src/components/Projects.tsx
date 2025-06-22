@@ -15,7 +15,7 @@ export default function Projects() {
       title: "Helpmet - A Site Safety Web App",
       description: "A productivity app with real-time updates using Next.js and Firebase.",
       link: "https://helpmet.ca/",
-      image: "/helpmet.svg",
+      image: "/Helpmet.svg",
     },
     {
       title: "Portfolio Website",
