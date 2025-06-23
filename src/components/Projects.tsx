@@ -98,9 +98,6 @@ export default function Projects() {
                 >
                   <ExternalLink className="w-4 h-4" />
                   <span className="text-sm hidden sm:inline">Live Site</span>
-                  <span className="absolute -top-6 left-1/2 -translate-x-1/2 scale-0 group-hover:scale-100 bg-gray-800 text-white text-xs rounded px-2 py-1 transition-all duration-200">
-                    Visit Live Site
-                  </span>
                 </motion.a>
 
                 {/* GitHub */}
@@ -116,9 +113,6 @@ export default function Projects() {
                 >
                   <Github className="w-4 h-4" />
                   <span className="text-sm hidden sm:inline">GitHub</span>
-                  <span className="absolute -top-6 left-1/2 -translate-x-1/2 scale-0 group-hover:scale-100 bg-gray-800 text-white text-xs rounded px-2 py-1 transition-all duration-200">
-                    View Code
-                  </span>
                 </motion.a>
               </div>
             </div>
