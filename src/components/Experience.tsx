@@ -26,8 +26,8 @@ export default function Experience() {
         {/* Item 1 - Left */}
         <div className="mb-12 flex justify-start items-center w-full">
           <div className="w-1/2 pr-8 text-right">
-            <h4 className="text-lg text-black-600 font-semibold">Google Operations Center</h4>
-            <p className="text-sm text-black-600">Cloud Support Analyst</p>
+            <h4 className="text-lg text-gray-600 font-semibold">Google Operations Center</h4>
+            <p className="text-sm text-gray-600">Cloud Support Analyst</p>
             <div className="flex justify-end text-sm text-gray-500 mt-2">
               <span className="flex items-center gap-1">
                 <CalendarCheck2 className="w-4 h-4" /> 2022 - 2023
@@ -44,7 +44,7 @@ export default function Experience() {
           <div className="w-1/2"></div>
           <div className="relative z-10 w-4 h-4 bg-black rounded-full border-2 border-white"></div>
           <div className="w-1/2 pl-8 text-left">
-            <h4 className="text-lg text-black-600 font-semibold">Xpheno Pvt Limited</h4>
+            <h4 className="text-lg text-gray-600 font-semibold">Xpheno Pvt Limited</h4>
             <p className="text-sm text-gray-600">Talent Acquisition Specialist</p>
             <div className="flex justify-start text-sm text-gray-500 mt-2">
               <span className="flex items-center gap-1">

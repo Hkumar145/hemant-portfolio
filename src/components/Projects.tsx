@@ -77,7 +77,7 @@ export default function Projects() {
                 />
 
               </div>
-              <h3 className="text-xl text-black-600 font-semibold mb-2">{project.title}</h3>
+              <h3 className="text-xl text-gray-600 font-semibold mb-2">{project.title}</h3>
               <p className="text-gray-600 mb-4">{project.description}</p>
               <a
                 href={project.link}
