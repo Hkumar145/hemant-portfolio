@@ -15,6 +15,7 @@ export default function Hero() {
                 sequence={[
                   'A passionate developer building modern web and mobile applications.',
                   1000, // Wait 1s after typing
+                  
                 ]}
                 wrapper="span"
                 speed={30} // Typing speed (lower is faster)

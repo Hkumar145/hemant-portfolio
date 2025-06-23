@@ -26,16 +26,16 @@ export default function Skills() {
     <motion.div
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.7 }}
+      transition={{ duration: 0.7, ease: 'easeInOut' }}
       viewport={{ once: true }}
-      className="bg-white p-6 rounded-2xl shadow-lg space-y-6"
+      className="bg-white p-6 rounded-2xl shadow-lg space-y-6 "
     >
       <h3 className="text-2xl font-bold text-gray-800 border-b pb-3 flex items-center gap-2">
         <Code className="w-6 h-6 text-blue-600" />
         Skills
       </h3>
 
-      <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-4 gap-6">
+      <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {skills.map((skill) => (
           <div
             key={skill.name}

@@ -7,7 +7,7 @@ export default function Education() {
     <motion.div
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.7 }}
+      transition={{ duration: 0.7 , ease: 'easeInOut' }}
       viewport={{ once: true }}
       className="bg-white p-6 rounded-2xl shadow-lg space-y-6 mt-10"
     >
