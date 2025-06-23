@@ -2,6 +2,14 @@
 import { CalendarCheck2 } from "lucide-react";
 import { motion } from 'framer-motion';
 
+// Define keyframe animation and transition separately
+const rotateKeyframes = { rotate: [0, 1.5, -1.5, 1.5, -1.5, 0] };
+const rotateTransition = {
+  duration: 3,
+  repeat: Infinity,
+  ease: "easeInOut" as const,
+};
+
 export default function Experience() {
   return (
     <motion.div
@@ -15,7 +23,7 @@ export default function Experience() {
         <CalendarCheck2 className="w-6 h-6 text-blue-600" />
         Experience
       </h3>
-      
+
       <p className="text-gray-600 mt-5 mb-12 text-left">
         With 2+ years of experience in IT, I began my journey in Talent Acquisition before transitioning into a technical role as a Cloud Support Analyst at Google. During this time, I discovered my true passion for building digital products.
       </p>
@@ -25,7 +33,11 @@ export default function Experience() {
 
         {/* Item 1 - Left */}
         <div className="mb-12 flex justify-start items-center w-full">
-          <div className="w-1/2 pr-8 text-right">
+          <motion.div
+            animate={rotateKeyframes}
+            transition={rotateTransition}
+            className="w-1/2 pr-8 text-right"
+          >
             <h4 className="text-lg text-gray-600 font-semibold">Google Operations Center</h4>
             <p className="text-sm text-gray-600">Cloud Support Analyst</p>
             <div className="flex justify-end text-sm text-gray-500 mt-2">
@@ -33,17 +45,32 @@ export default function Experience() {
                 <CalendarCheck2 className="w-4 h-4" /> 2022 - 2023
               </span>
             </div>
-          </div>
+          </motion.div>
 
-          <div className="relative z-10 w-4 h-4 bg-black rounded-full border-2 border-white"></div>
+          <motion.div
+            animate={rotateKeyframes}
+            transition={rotateTransition}
+            className="relative z-10 w-4 h-4 bg-black rounded-full border-2 border-white"
+          ></motion.div>
+
           <div className="w-1/2"></div>
         </div>
 
         {/* Item 2 - Right */}
         <div className="mb-12 flex justify-end items-center w-full">
           <div className="w-1/2"></div>
-          <div className="relative z-10 w-4 h-4 bg-black rounded-full border-2 border-white"></div>
-          <div className="w-1/2 pl-8 text-left">
+
+          <motion.div
+            animate={rotateKeyframes}
+            transition={rotateTransition}
+            className="relative z-10 w-4 h-4 bg-black rounded-full border-2 border-white"
+          ></motion.div>
+
+          <motion.div
+            animate={rotateKeyframes}
+            transition={rotateTransition}
+            className="w-1/2 pl-8 text-left"
+          >
             <h4 className="text-lg text-gray-600 font-semibold">Xpheno Pvt Limited</h4>
             <p className="text-sm text-gray-600">Talent Acquisition Specialist</p>
             <div className="flex justify-start text-sm text-gray-500 mt-2">
@@ -51,7 +78,7 @@ export default function Experience() {
                 <CalendarCheck2 className="w-4 h-4" /> 2022 - 2023
               </span>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
 

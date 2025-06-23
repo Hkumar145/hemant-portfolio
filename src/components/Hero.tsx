@@ -12,14 +12,15 @@ export default function Hero() {
             <h2 className="text-4xl md:text-5xl font-bold mb-4">Hi, I&apos;m Hemant Kumar</h2>
             <p className="text-xl mb-6">
               <TypeAnimation
-                sequence={[
-                  'A passionate developer building modern web and mobile applications.',
-                  1000, // Wait 1s after typing
-                  
-                ]}
-                wrapper="span"
-                speed={30} // Typing speed (lower is faster)
-                repeat={10} // Loop the animation continuously
+              sequence={[
+                'A passionate developer building modern web and mobile applications!',
+                1500,
+                'Also, professional bug creator (and sometimes fixer)!',
+                1500,
+              ]}
+              wrapper="span"
+              speed={5}
+              repeat={10}
               />
             </p>
             <a

@@ -17,7 +17,7 @@ export default function Projects() {
     },
     {
       title: "Helpmet - A Site Safety Web App",
-      description: "A productivity app with real-time updates using Next.js and Firebase.",
+      description: "A Site Safety app with features like injury reporting, heat maps, equipment checks & more.",
       link: "https://helpmet.ca/",
       github: "https://github.com/Hkumar145/Helpmet",
       image: "/Helpmet.svg",
@@ -28,6 +28,13 @@ export default function Projects() {
       link: "https://hemantanand.dev",
       github: "https://github.com/Hkumar145/hemant-portfolio",
       image: "/portfolio.png",
+    },
+    {
+      title: "Art Asta - An Art Marketplace",
+      description: "A full-stack e-commerce platform for artists to showcase and sell their work.",
+      link: "https://artasta.netlify.app/",
+      github: "https://github.com/Hkumar145/ArtAsta",
+      image: "/artasta.jpg",
     },
   ];
 
@@ -62,7 +69,7 @@ export default function Projects() {
     <section id="projects" className="py-20 bg-gray-100">
       <div className="container mx-auto px-6">
         <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
-          My Projects
+          Some of my Projects !
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {projects.map((project, index) => (
