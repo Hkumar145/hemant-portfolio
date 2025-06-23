@@ -25,7 +25,7 @@ export default function Certifications() {
       image: '/certs/huawei.png',
       link: 'https://drive.google.com/file/d/1T6ZLIF9osM4KIXNSx-HAx12BDLkLFhff/view',
     },
-     {
+    {
       title: 'Google Digital Garage - Fundamentals of Digital Marketing',
       image: '/certs/digital-marketing.png',
       link: 'https://drive.google.com/file/d/1-CGfuvpcZjuODVZSd2YPcX3SJQKRZcwE/view',
@@ -58,12 +58,19 @@ export default function Certifications() {
       <div className="overflow-x-auto">
         <div className="flex gap-6 w-max">
           {certifications.map((cert, index) => (
-            <a
+            <motion.a
               key={index}
               href={cert.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="min-w-[250px] max-w-[250px] bg-gray-50 rounded-xl shadow-md hover:shadow-xl transition p-4 flex-shrink-0"
+              className="min-w-[250px] max-w-[250px] bg-gray-50 rounded-xl shadow-md p-4 flex-shrink-0"
+              whileHover={{
+                scale: 1.05,
+                y: -5,
+                boxShadow: '0px 10px 20px rgba(0,0,0,0.12)',
+                transition: { duration: 0.3, ease: 'easeInOut' },
+              }}
+              initial={{ boxShadow: '0px 2px 8px rgba(0,0,0,0.08)' }}
             >
               <Image
                 src={cert.image}
@@ -73,7 +80,7 @@ export default function Certifications() {
                 className="rounded-lg object-cover mb-3"
               />
               <p className="text-sm text-gray-800 font-medium">{cert.title}</p>
-            </a>
+            </motion.a>
           ))}
         </div>
       </div>
