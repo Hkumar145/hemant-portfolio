@@ -37,17 +37,22 @@ export default function Experience() {
   transition={rotateTransition}
   className="w-1/2 pr-8 text-right"
 >
-  <div className="text-lg font-semibold flex flex-wrap justify-end">
-  <motion.span style={{ color: "#4285F4" }} whileHover={{ rotate: [0, -10, 10, -5, 5, 0], transition: { duration: 0.6 } }}>G</motion.span>
-  <motion.span style={{ color: "#DB4437" }} whileHover={{ rotate: [0, -10, 10, -5, 5, 0], transition: { duration: 0.6 } }}>o</motion.span>
-  <motion.span style={{ color: "#F4B400" }} whileHover={{ rotate: [0, -10, 10, -5, 5, 0], transition: { duration: 0.6 } }}>o</motion.span>
-  <motion.span style={{ color: "#4285F4" }} whileHover={{ rotate: [0, -10, 10, -5, 5, 0], transition: { duration: 0.6 } }}>g</motion.span>
-  <motion.span style={{ color: "#0F9D58" }} whileHover={{ rotate: [0, -10, 10, -5, 5, 0], transition: { duration: 0.6 } }}>l</motion.span>
-  <motion.span style={{ color: "#DB4437" }} whileHover={{ rotate: [0, -10, 10, -5, 5, 0], transition: { duration: 0.6 } }}>e</motion.span>
-  
-  <span className="ml-2 text-orange-600">Operations</span>
-  <span className="ml-1 text-yellow-600">Center</span>
+<div className="text-lg font-semibold flex flex-wrap justify-end">
+  {/* Google Logo Letters */}
+  <motion.span style={{ color: "#4285F4" }}>G</motion.span>
+  <motion.span style={{ color: "#DB4437" }}>o</motion.span>
+  <motion.span style={{ color: "#F4B400" }}>o</motion.span>
+  <motion.span style={{ color: "#4285F4" }}>g</motion.span>
+  <motion.span style={{ color: "#0F9D58" }}>l</motion.span>
+  <motion.span style={{ color: "#DB4437" }}>e</motion.span>
+
+  {/* Only first letter of each word is colored */}
+  <span className="ml-2">
+    <span className="text-indigo-500">O</span>perations{" "}
+    <span className="text-orange-500">C</span>enter
+  </span>
 </div>
+
 
   <p className="text-sm text-gray-600">Cloud Support Analyst</p>
   <div className="flex justify-end text-sm text-gray-500 mt-2">
