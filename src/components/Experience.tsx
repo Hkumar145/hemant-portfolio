@@ -45,8 +45,8 @@ export default function Experience() {
   <motion.span style={{ color: "#0F9D58" }} whileHover={{ rotate: [0, -10, 10, -5, 5, 0], transition: { duration: 0.6 } }}>l</motion.span>
   <motion.span style={{ color: "#DB4437" }} whileHover={{ rotate: [0, -10, 10, -5, 5, 0], transition: { duration: 0.6 } }}>e</motion.span>
   
-  <span className="ml-2 text-indigo-600">Operations</span>
-  <span className="ml-1 text-indigo-600">Center</span>
+  <span className="ml-2 text-orange-600">Operations</span>
+  <span className="ml-1 text-yellow-600">Center</span>
 </div>
 
   <p className="text-sm text-gray-600">Cloud Support Analyst</p>
