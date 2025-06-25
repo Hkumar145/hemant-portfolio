@@ -5,7 +5,6 @@ import { useState, useEffect } from "react";
 import { ExternalLink, Github } from "lucide-react";
 import { motion } from "framer-motion";
 
-
 export default function Projects() {
   const projects = [
     {
@@ -69,30 +68,32 @@ export default function Projects() {
     <section id="projects" className="py-20 bg-gray-100">
       <div className="container mx-auto px-6">
         <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
-          Some of my Projects !
+          Some of my Projects!
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {projects.map((project, index) => (
             <div key={index} className="bg-white p-6 rounded-lg shadow-md">
-              <div className="relative w-full h-48 mb-4">
-                <Image
-                  src={project.image}
-                  alt={`${project.title} screenshot`}
-                  fill
-                  style={{ objectFit: "contain" }}
-                  className={`transition-transform duration-700 ease-in-out ${rotated[index] ? "rotate-y-360" : "rotate-y-0"
-                    } ${index === projects.length - 1 ? "rounded-2xl" : ""}`}
-                  priority={index === 0}
-                />
+              <div className="relative w-full h-48 mb-4 perspective">
+                <div
+                  className={`w-full h-full transition-transform duration-[1000ms] ease-in-out preserve-3d ${
+                    rotated[index] ? "rotate-y-180" : "rotate-y-0"
+                  }`}
+                >
+                  <Image
+                    src={project.image}
+                    alt={`${project.title} screenshot`}
+                    fill
+                    className="object-contain backface-hidden rounded-lg"
+                    priority={index === 0}
+                  />
+                </div>
               </div>
               <h3 className="text-xl text-gray-600 font-semibold mb-2">
                 {project.title}
               </h3>
               <p className="text-gray-600">{project.description}</p>
 
-              {/* Links with icons and tooltips */}
               <div className="flex justify-between items-center mt-4">
-                {/* Live Site */}
                 <motion.a
                   href={project.link}
                   initial={{ opacity: 0, y: 10 }}
@@ -106,8 +107,6 @@ export default function Projects() {
                   <ExternalLink className="w-4 h-4" />
                   <span className="text-sm hidden sm:inline">Live Site</span>
                 </motion.a>
-
-                {/* GitHub */}
                 <motion.a
                   href={project.github}
                   initial={{ opacity: 0, y: 10 }}

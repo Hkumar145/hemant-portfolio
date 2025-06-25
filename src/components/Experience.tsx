@@ -32,29 +32,30 @@ export default function Experience() {
         <div className="border-l-2 border-gray-300 absolute h-full left-1/2 transform -translate-x-1/2"></div>
 
         {/* Item 1 - Left */}
-        <div className="mb-12 flex justify-start items-center w-full">
-          <motion.div
-            animate={rotateKeyframes}
-            transition={rotateTransition}
-            className="w-1/2 pr-8 text-right"
-          >
-            <h4 className="text-lg text-gray-600 font-semibold">Google Operations Center</h4>
-            <p className="text-sm text-gray-600">Cloud Support Analyst</p>
-            <div className="flex justify-end text-sm text-gray-500 mt-2">
-              <span className="flex items-center gap-1">
-                <CalendarCheck2 className="w-4 h-4" /> 2022 - 2023
-              </span>
-            </div>
-          </motion.div>
+      <motion.div
+  animate={rotateKeyframes}
+  transition={rotateTransition}
+  className="w-1/2 pr-8 text-right"
+>
+  <div className="text-lg font-semibold flex flex-wrap justify-end">
+  <motion.span style={{ color: "#4285F4" }} whileHover={{ rotate: [0, -10, 10, -5, 5, 0], transition: { duration: 0.6 } }}>G</motion.span>
+  <motion.span style={{ color: "#DB4437" }} whileHover={{ rotate: [0, -10, 10, -5, 5, 0], transition: { duration: 0.6 } }}>o</motion.span>
+  <motion.span style={{ color: "#F4B400" }} whileHover={{ rotate: [0, -10, 10, -5, 5, 0], transition: { duration: 0.6 } }}>o</motion.span>
+  <motion.span style={{ color: "#4285F4" }} whileHover={{ rotate: [0, -10, 10, -5, 5, 0], transition: { duration: 0.6 } }}>g</motion.span>
+  <motion.span style={{ color: "#0F9D58" }} whileHover={{ rotate: [0, -10, 10, -5, 5, 0], transition: { duration: 0.6 } }}>l</motion.span>
+  <motion.span style={{ color: "#DB4437" }} whileHover={{ rotate: [0, -10, 10, -5, 5, 0], transition: { duration: 0.6 } }}>e</motion.span>
+  
+  <span className="ml-2 text-indigo-600">Operations</span>
+  <span className="ml-1 text-indigo-600">Center</span>
+</div>
 
-          <motion.div
-            animate={rotateKeyframes}
-            transition={rotateTransition}
-            className="relative z-10 w-4 h-4 bg-black rounded-full border-2 border-white"
-          ></motion.div>
-
-          <div className="w-1/2"></div>
-        </div>
+  <p className="text-sm text-gray-600">Cloud Support Analyst</p>
+  <div className="flex justify-end text-sm text-gray-500 mt-2">
+    <span className="flex items-center gap-1">
+      <CalendarCheck2 className="w-4 h-4" /> 2022 - 2023
+    </span>
+  </div>
+</motion.div>
 
         {/* Item 2 - Right */}
         <div className="mb-12 flex justify-end items-center w-full">
@@ -71,7 +72,11 @@ export default function Experience() {
             transition={rotateTransition}
             className="w-1/2 pl-8 text-left"
           >
-            <h4 className="text-lg text-gray-600 font-semibold">Xpheno Pvt Limited</h4>
+            <div className="text-lg font-semibold flex text-left">
+  <span className="text-orange-500">X</span>
+  <span className="text-gray-800">pheno Pvt Limited</span>
+</div>
+
             <p className="text-sm text-gray-600">Talent Acquisition Specialist</p>
             <div className="flex justify-start text-sm text-gray-500 mt-2">
               <span className="flex items-center gap-1">
