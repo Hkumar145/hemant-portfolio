@@ -48,10 +48,6 @@ export default function Education() {
           </span>
         </div>
       </div>
-
-      <p className="text-xs text-gray-400 mt-2">
-        † Unofficial linear conversion; official equivalency can vary by evaluator (e.g., WES/ECE).
-      </p>
     </motion.div>
   );
 }
