@@ -26,23 +26,32 @@ export default function Education() {
           <span className="flex items-center gap-1">
             <CalendarCheck2 className="w-4 h-4" /> 2016 - 2020
           </span>
-          <span>GPA: 7.53 (Distinction)</span>
+          <span>
+            GPA: 7.53/10 (Distinction, ~3.0/4.0†)
+          </span>
         </div>
       </div>
 
       {/* PGDM Degree */}
       <div>
         <h4 className="text-lg font-semibold text-gray-700">
-          PGDM in Web & Mobile App Development and Design
+          PGDM in Web &amp; Mobile App Development and Design
         </h4>
         <p className="text-gray-600">Langara College, Vancouver</p>
         <div className="flex justify-between text-sm text-gray-500 mt-2">
           <span className="flex items-center gap-1">
             <CalendarCheck2 className="w-4 h-4" /> 2024 - 2025
           </span>
-          <span>GPA: 3.48 (Distinction)</span>
+          <span>
+            GPA: 3.48/4.0 (Distinction)
+            {/* If Langara uses 4.33, change to 3.48/4.33 */}
+          </span>
         </div>
       </div>
+
+      <p className="text-xs text-gray-400 mt-2">
+        † Unofficial linear conversion; official equivalency can vary by evaluator (e.g., WES/ECE).
+      </p>
     </motion.div>
   );
 }
