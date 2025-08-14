@@ -26,7 +26,7 @@ export default function Education() {
           <span className="flex items-center gap-1">
             <CalendarCheck2 className="w-4 h-4" /> 2016 - 2020
           </span>
-          <span>GPA: 3.48 (Distinction)</span>
+          <span>GPA: 7.53 (Distinction)</span>
         </div>
       </div>
 
@@ -40,7 +40,7 @@ export default function Education() {
           <span className="flex items-center gap-1">
             <CalendarCheck2 className="w-4 h-4" /> 2024 - 2025
           </span>
-          <span>GPA: 7.53 (Distinction)</span>
+          <span>GPA: 3.48 (Distinction)</span>
         </div>
       </div>
     </motion.div>
