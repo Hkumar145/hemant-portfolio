@@ -27,7 +27,7 @@ export default function Education() {
             <CalendarCheck2 className="w-4 h-4" /> 2016 - 2020
           </span>
           <span>
-            GPA: 7.53/10 (Distinction, ~3.0/4.0†)
+            GPA: 7.53/10 (Distinction)
           </span>
         </div>
       </div>
