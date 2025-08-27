@@ -24,7 +24,7 @@ export default function Projects() {
     {
       title: "Portfolio Website",
       description: "This is my very own portfolio, built with Next.js and Tailwind CSS.",
-      link: "https://hemantanand.dev",
+      link: "https://www.hemantkmr.dev/",
       github: "https://github.com/Hkumar145/hemant-portfolio",
       image: "/portfolio.png",
     },
