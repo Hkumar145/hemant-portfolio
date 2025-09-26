@@ -65,7 +65,7 @@ export default function Projects() {
   }, []);
 
   return (
-    <section id="projects" className="py-20 bg-gray-100">
+    <section id="projects" className="py-20 bg-gray-100 scroll-mt-5 md:scroll-mt-8">
       <div className="container mx-auto px-6">
         <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
           Some of my Projects!

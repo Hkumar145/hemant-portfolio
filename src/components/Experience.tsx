@@ -13,11 +13,12 @@ const rotateTransition = {
 export default function Experience() {
   return (
     <motion.div
+      id="experience"
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.7, ease: "easeInOut" }}
       viewport={{ once: true }}
-      className="bg-white p-6 rounded-lg shadow-md"
+      className="bg-white p-6 rounded-lg shadow-md scroll-mt-23 md:scroll-mt-25"
     >
       <h3 className="text-2xl font-bold text-gray-800 border-b pb-3 flex items-center gap-2">
         <CalendarCheck2 className="w-6 h-6 text-blue-600" />

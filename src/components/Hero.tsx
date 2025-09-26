@@ -1,45 +1,106 @@
-'use client'
+'use client';
+
 import Image from 'next/image';
 import { TypeAnimation } from 'react-type-animation';
+import { motion } from 'framer-motion';
 
 export default function Hero() {
   return (
-    <section id="home" className="bg-blue-600 text-white py-20">
-      <div className="container mx-auto px-6">
-        <div className="flex flex-col md:flex-row items-center justify-between">
+    <section
+      id="home"
+      className="relative overflow-hidden bg-gradient-to-br from-blue-700 via-blue-600 to-indigo-700 text-white"
+      aria-label="Intro section"
+    >
+      {/* Decorative glow */}
+      <div className="pointer-events-none absolute -top-24 -right-24 h-72 w-72 rounded-full bg-white/10 blur-3xl" />
+      <div className="pointer-events-none absolute -bottom-32 -left-20 h-80 w-80 rounded-full bg-indigo-400/10 blur-3xl" />
+
+      <div className="container mx-auto px-6 py-20 md:py-28">
+        <div className="flex flex-col items-center justify-between gap-12 md:flex-row">
           {/* Text Column */}
-          <div className="md:w-1/2 text-center md:text-left mb-8 md:mb-0">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">Hi, I&apos;m Hemant Kumar</h2>
-            <p className="text-xl mb-6">
+          <motion.div
+            initial={{ opacity: 0, y: 28 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+            className="md:w-1/2 text-center md:text-left"
+          >
+            <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">
+              Hi, I&apos;m Hemant Kumar
+            </h1>
+
+            <h2 className="text-2xl md:text-xl font-bold mb-4">
+              Full Stack Developer &amp; Cloud Engineer
+            </h2>
+
+            <p className="text-base md:text-l/relaxed mb-8 text-white/90">
               <TypeAnimation
-              sequence={[
-                'A passionate developer building modern web and mobile applications!',
-                1500,
-                'Also, professional bug creator (and sometimes fixer)!',
-                1500,
-              ]}
-              wrapper="span"
-              speed={5}
-              repeat={10}
+                sequence={[
+                  'A passionate developer building modern web and mobile applications!',
+                  1500,
+                  'Also, professional bug creator (and sometimes fixer)!',
+                  1500,
+                ]}
+                wrapper="span"
+                speed={15}
+                repeat={Infinity}
               />
             </p>
-            <a
-              href="#projects"
-              className="inline-block bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100"
-            >
-              View My Work
-            </a>
-          </div>
+
+            <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-5">
+              <a
+                href="/Hemant_Kumar_Resume.pdf"
+                className="inline-flex items-center rounded-lg bg-white px-6 py-3 font-semibold text-blue-700 shadow-sm ring-1 ring-white/20 transition hover:bg-gray-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-white"
+                download
+                aria-label="Download Resume PDF"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="mr-2 h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V4"
+                  />
+                </svg>
+                Download Resume
+              </a>
+
+              <a
+                href="#projects"
+                className="inline-flex items-center rounded-lg border border-white/40 px-6 py-3 font-semibold text-white shadow-sm transition hover:bg-white hover:text-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-white"
+                aria-label="Jump to Projects section"
+              >
+                View Projects
+              </a>
+            </div>
+          </motion.div>
+
           {/* Image Column */}
-          <div className="md:w-1/2 flex justify-center">
-            <Image
-              src="/profile.png"
-              alt="Hemant Kumar profile picture"
-              width={300}
-              height={220}
-              className="rounded-full"
-            />
-          </div>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, ease: 'easeOut', delay: 0.1 }}
+            className="md:w-1/2 flex justify-center"
+          >
+            <div className="relative">
+              <div className="absolute -inset-3 -z-10 rounded-full bg-white/10 blur-2xl" />
+              <Image
+                src="/profile.png"
+                alt="Portrait of Hemant Kumar"
+                width={320}
+                height={320}
+                priority
+                sizes="(max-width: 768px) 240px, 320px"
+                className="rounded-full shadow-xl transition-transform duration-300 hover:scale-105"
+              />
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>
