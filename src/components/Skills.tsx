@@ -82,7 +82,6 @@ export default function Skills() {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.7, ease: 'easeInOut' }}
       viewport={{ once: true }}
-      // 👇 added scroll-mt to offset sticky header
       className="scroll-mt-23 md:scroll-mt-25 bg-white p-6 rounded-2xl shadow-lg space-y-6"
     >
       <h3 className="text-2xl font-bold text-gray-800 border-b pb-3 flex items-center gap-2">
@@ -97,8 +96,9 @@ export default function Skills() {
             className="flex flex-col items-center"
             title={skill.name}
             whileHover={{
-              y: [0, -10, 0, -6, 0],
-              transition: { duration: 0.6, ease: 'easeInOut' },
+              y: -10,
+              scale: 1.05,
+              transition: { duration: 0.3, ease: 'easeOut' },
             }}
           >
             <Image

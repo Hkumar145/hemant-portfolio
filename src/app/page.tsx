@@ -23,7 +23,6 @@ export default function Home() {
          <Skills />
          <Experience />
         </div>
-        
          <Certifications />
         </div>
         <Projects />

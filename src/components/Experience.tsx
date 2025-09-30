@@ -18,7 +18,7 @@ export default function Experience() {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.7, ease: "easeInOut" }}
       viewport={{ once: true }}
-      className="bg-white p-6 rounded-lg shadow-md scroll-mt-23 md:scroll-mt-25"
+      className="bg-white p-6 rounded-2xl shadow-lg scroll-mt-23 md:scroll-mt-25"
     >
       <h3 className="text-2xl font-bold text-gray-800 border-b pb-3 flex items-center gap-2">
         <CalendarCheck2 className="w-6 h-6 text-blue-600" />
@@ -49,8 +49,8 @@ export default function Experience() {
 
   {/* Only first letter of each word is colored */}
   <span className="ml-2">
-    <span className="text-indigo-500">O</span>perations{" "}
-    <span className="text-orange-500">C</span>enter
+    <span className="text-indigo-500">O</span><span className="text-gray-800">perations</span>{" "}
+    <span className="text-orange-500">C</span><span className="text-gray-800">enter</span>
   </span>
 </div>
 

@@ -85,13 +85,15 @@ export default function Certifications() {
                   rel="noopener noreferrer"
                   aria-label={`View credential: ${cert.title}`}
                   className="
-                    group block min-w-[250px] max-w-[250px] flex-shrink-0 rounded-xl
-                    bg-gray-50 p-4 shadow-md ring-1 ring-slate-200 transition
-                    hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600
-                    lg:min-w-0 lg:max-w-none
-                  "
+    group block min-w-[300px] max-w-[300px] flex-shrink-0 rounded-xl
+    bg-gray-50 p-4 shadow-md ring-1 ring-slate-200 transition
+    hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600
+    sm:min-w-[350px] sm:max-w-[350px]
+    lg:min-w-0 lg:max-w-none
+  "
                   whileHover={{ y: -4, scale: 1.03, transition: { duration: 0.22 } }}
                 >
+
                   <div className="mb-3 overflow-hidden rounded-lg">
                     <Image
                       src={cert.image}
