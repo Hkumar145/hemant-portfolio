@@ -1,21 +1,52 @@
 'use client';
 
+import dynamic from 'next/dynamic';
+const SparkleOrbits = dynamic(() => import('@/components/SparkleOrbits'), { ssr: false });
+
 import Image from 'next/image';
 import { TypeAnimation } from 'react-type-animation';
-import { motion } from 'framer-motion';
-
+import { motion, useReducedMotion } from 'framer-motion';
 export default function Hero() {
+  const reduceMotion = useReducedMotion();
+
   return (
     <section
       id="home"
       className="relative overflow-hidden bg-gradient-to-br from-blue-700 via-blue-600 to-indigo-700 text-white"
       aria-label="Intro section"
     >
-      {/* Decorative glow */}
-      <div className="pointer-events-none absolute -top-24 -right-24 h-72 w-72 rounded-full bg-white/10 blur-3xl" />
-      <div className="pointer-events-none absolute -bottom-32 -left-20 h-80 w-80 rounded-full bg-indigo-400/10 blur-3xl" />
+      {/* Decorative glow (behind everything) */}
+      <div className="pointer-events-none absolute -top-24 -right-24 h-72 w-72 rounded-full bg-white/10 blur-3xl -z-10" />
+      <div className="pointer-events-none absolute -bottom-32 -left-20 h-80 w-80 rounded-full bg-indigo-400/10 blur-3xl -z-10" />
 
-      <div className="container mx-auto px-6 py-20 md:py-28">
+      {/* Meteors layer (CSS-based, disabled if reduced motion) */}
+      {!reduceMotion && (
+        <>
+          <span
+            aria-hidden
+            className="absolute -top-10 -left-20 h-0.5 w-32 opacity-70"
+            style={{
+              background:
+                'linear-gradient(90deg, rgba(255,255,255,0.95), rgba(255,255,255,0))',
+              filter: 'blur(0.2px)',
+              animation: 'meteor 7.5s linear infinite',
+            }}
+          />
+          <span
+            aria-hidden
+            className="absolute top-[15%] left-[30%] h-0.5 w-40 opacity-70"
+            style={{
+              background:
+                'linear-gradient(90deg, rgba(255,255,255,0.95), rgba(255,255,255,0))',
+              filter: 'blur(0.3px)',
+              animation: 'meteor 9s linear infinite',
+              animationDelay: '2s',
+            }}
+          />
+        </>
+      )}
+
+      <div className="container mx-auto px-6 py-20 md:py-28 relative">
         <div className="flex flex-col items-center justify-between gap-12 md:flex-row">
           {/* Text Column */}
           <motion.div
@@ -32,7 +63,7 @@ export default function Hero() {
               Full Stack Developer &amp; Cloud Engineer
             </h2>
 
-            <p className="text-base md:text-l/relaxed mb-8 text-white/90">
+            <p className="text-base md:text-lg leading-relaxed mb-8 text-white/90">
               <TypeAnimation
                 sequence={[
                   'A passionate developer building modern web and mobile applications!',
@@ -81,7 +112,7 @@ export default function Hero() {
             </div>
           </motion.div>
 
-          {/* Image Column */}
+          {/* Image Column with orbital rings + sparkles */}
           <motion.div
             initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -89,7 +120,61 @@ export default function Hero() {
             className="md:w-1/2 flex justify-center"
           >
             <div className="relative">
-              <div className="absolute -inset-3 -z-10 rounded-full bg-white/10 blur-2xl" />
+              {/* Halo */}
+              <div className="absolute -inset-4 -z-10 rounded-full bg-white/10 blur-2xl" />
+
+              {/* Rings + sparkles behind avatar */}
+              <div className="absolute inset-0 -z-10 flex items-center justify-center">
+                {/* Outer ring */}
+                <motion.svg
+                  width="380"
+                  height="380"
+                  viewBox="0 0 380 380"
+                  initial={false}
+                  animate={reduceMotion ? {} : { rotate: 360 }}
+                  transition={reduceMotion ? {} : { duration: 60, ease: 'linear', repeat: Infinity }}
+                  className="opacity-50"
+                  aria-hidden
+                >
+                  <circle
+                    cx="190"
+                    cy="190"
+                    r="180"
+                    fill="none"
+                    stroke="white"
+                    strokeOpacity="0.15"
+                    strokeWidth="1.5"
+                    strokeDasharray="6 10"
+                  />
+                </motion.svg>
+
+                {/* Inner ring (counter-rotating) */}
+                <motion.svg
+                  width="300"
+                  height="300"
+                  viewBox="0 0 300 300"
+                  initial={false}
+                  animate={reduceMotion ? {} : { rotate: -360 }}
+                  transition={reduceMotion ? {} : { duration: 50, ease: 'linear', repeat: Infinity }}
+                  className="absolute opacity-60"
+                  aria-hidden
+                >
+                  <circle
+                    cx="150"
+                    cy="150"
+                    r="140"
+                    fill="none"
+                    stroke="white"
+                    strokeOpacity="0.2"
+                    strokeWidth="1.5"
+                    strokeDasharray="2 8"
+                  />
+                </motion.svg>
+
+                {/* ✨ Sparkles drifting around the rings */}
+                <SparkleOrbits reduceMotion={!!reduceMotion} />
+              </div>
+
               <Image
                 src="/profile.png"
                 alt="Portrait of Hemant Kumar"
@@ -103,6 +188,25 @@ export default function Hero() {
           </motion.div>
         </div>
       </div>
+
+      {/* CSS keyframes for meteors */}
+      {!reduceMotion && (
+        <style jsx>{`
+          @keyframes meteor {
+            0% {
+              transform: translate3d(-10%, -20%, 0) rotate(45deg);
+              opacity: 0;
+            }
+            10% {
+              opacity: 1;
+            }
+            100% {
+              transform: translate3d(110%, 120%, 0) rotate(45deg);
+              opacity: 0;
+            }
+          }
+        `}</style>
+      )}
     </section>
   );
 }

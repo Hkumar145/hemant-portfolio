@@ -9,6 +9,7 @@ import Education from '../components/Education';
 import Skills from '../components/Skills';
 import Experience from '../components/Experience';
 import React from 'react';
+import StarryProjectGrid from '../components/StarryProjectGrid';
 
 export default function Home() {
   return (
@@ -17,14 +18,23 @@ export default function Home() {
       <main className="flex-grow">
         <Hero />
         <About />
-          <div className="container mx-auto px-0 mb-12 space-y-12">
+
+        {/* ⭐ Starry wrapper for Education / Skills / Experience / Certifications */}
+        <StarryProjectGrid
+          id="highlights"
+          title="Highlights"
+          withGradient
+          withStarfield
+          starCount={150}
+          meteorEveryMs={2600}
+          containerClassName="container mx-auto px-0 mb-12 space-y-12"
+        >
           <Education />
-             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-         <Skills />
-         <Experience />
-        </div>
-         <Certifications />
-        </div>
+          <Skills />
+          <Experience />
+          <Certifications />
+        </StarryProjectGrid>
+
         <Projects />
         <Contact />
       </main>

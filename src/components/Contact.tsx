@@ -1,17 +1,160 @@
 'use client';
 
-import { useState } from 'react';
-import { motion, easeOut } from 'framer-motion';
+import { useState, useEffect, useRef } from 'react';
+import { motion, easeOut, useReducedMotion } from 'framer-motion';
 import { User, Mail, MessageSquare, Send, CheckCircle2, XCircle } from 'lucide-react';
 
+/* ---------- Starfield + Meteors Canvas (background) ---------- */
+function Starfield({
+  starCount = 160,
+  meteorEveryMs = 2600,
+}: {
+  starCount?: number;
+  meteorEveryMs?: number;
+}) {
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const reduceMotion = useReducedMotion();
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d', { alpha: true });
+    if (!ctx) return;
+
+    const DPR = Math.max(1, Math.min(window.devicePixelRatio || 1, 2));
+    let w = 0, h = 0;
+
+    const resize = () => {
+      const rect = canvas.getBoundingClientRect();
+      w = Math.floor(rect.width);
+      h = Math.floor(rect.height);
+      canvas.width = Math.floor(w * DPR);
+      canvas.height = Math.floor(h * DPR);
+      ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    };
+
+    type Star = { x: number; y: number; r: number; t: number; s: number };
+    const stars: Star[] = Array.from({ length: starCount }).map(() => ({
+      x: 0,
+      y: 0,
+      r: 0.2 + Math.random() * 1.2,
+      t: Math.random() * Math.PI * 2,  // twinkle phase
+      s: 0.4 + Math.random() * 0.6,    // twinkle speed
+    }));
+
+    type Meteor = { x: number; y: number; vx: number; vy: number; life: number; maxLife: number };
+    let meteors: Meteor[] = [];
+
+    let raf = 0;
+    let last = performance.now();
+    let acc = 0;
+
+    const scatter = () => {
+      for (const s of stars) {
+        s.x = Math.random() * w;
+        s.y = Math.random() * h;
+      }
+    };
+
+    const spawnMeteor = () => {
+      const startX = Math.random() < 0.5 ? -20 : Math.random() * (w + 40) - 20;
+      const startY = -30;
+      const speed = 4 + Math.random() * 3;
+      const angle = Math.PI / 3 + Math.random() * 0.25; // ~60–75°
+      meteors.push({
+        x: startX,
+        y: startY,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        life: 0,
+        maxLife: 1000 + Math.random() * 800,
+      });
+    };
+
+    const draw = (now: number) => {
+      raf = requestAnimationFrame(draw);
+      const dt = now - last;
+      last = now;
+      acc += dt;
+
+      ctx.clearRect(0, 0, w, h);
+
+      // Stars
+      for (const s of stars) {
+        if (!reduceMotion) s.t += s.s * 0.015;
+        const a = reduceMotion ? 0.65 : 0.55 + 0.45 * Math.sin(s.t);
+        ctx.globalAlpha = a;
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fillStyle = '#fff';
+        ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+
+      // Meteors
+      if (!reduceMotion && acc > meteorEveryMs) {
+        acc = 0;
+        spawnMeteor();
+      }
+      meteors = meteors.filter(
+        (m) => m.life < m.maxLife && m.x < w + 200 && m.y < h + 200
+      );
+      for (const m of meteors) {
+        m.x += m.vx;
+        m.y += m.vy;
+        m.life += dt;
+
+        const trailX = m.x - m.vx * 10;
+        const trailY = m.y - m.vy * 10;
+        const g = ctx.createLinearGradient(m.x, m.y, trailX, trailY);
+        g.addColorStop(0, 'rgba(255,255,255,0.95)');
+        g.addColorStop(1, 'rgba(255,255,255,0)');
+        ctx.strokeStyle = g;
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(m.x, m.y);
+        ctx.lineTo(trailX, trailY);
+        ctx.stroke();
+
+        ctx.fillStyle = 'rgba(255,255,255,0.95)';
+        ctx.beginPath();
+        ctx.arc(m.x, m.y, 1.6, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    };
+
+    const ro = new ResizeObserver(() => {
+      resize();
+      scatter();
+    });
+
+    resize();
+    scatter();
+    ro.observe(canvas);
+    last = performance.now();
+    raf = requestAnimationFrame(draw);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      ro.disconnect();
+    };
+  }, [starCount, meteorEveryMs, useReducedMotion]);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      className="absolute inset-0 z-0 h-full w-full pointer-events-none
+                 [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)]"
+      aria-hidden
+    />
+  );
+}
+
+/* ---------- Motion variants ---------- */
 const container = {
   hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.08 },
-  },
+  visible: { opacity: 1, transition: { staggerChildren: 0.08 } },
 };
-
 const item = {
   hidden: { opacity: 0, y: 18 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.38, ease: easeOut } },
@@ -30,7 +173,6 @@ export default function Contact() {
     const formData = new FormData(form);
 
     try {
-      // POST directly to Formspree
       const res = await fetch('https://formspree.io/f/xzzgalwy', {
         method: 'POST',
         headers: { Accept: 'application/json' },
@@ -42,7 +184,10 @@ export default function Contact() {
         setMessage("Thanks! I've received your message and will get back to you soon.");
         form.reset();
       } else {
-        const data = await res.json().catch(() => ({}));
+        interface FormspreeErrorResponse {
+          error?: string;
+        }
+        const data: FormspreeErrorResponse = await res.json().catch(() => ({}));
         setStatus('error');
         setMessage(
           data?.error || 'Something went wrong sending your message. Please try again.'
@@ -52,16 +197,26 @@ export default function Contact() {
       setStatus('error');
       setMessage('Network error. Please check your connection and try again.');
     } finally {
-      // Auto-hide status after a bit
       setTimeout(() => setStatus('idle'), 5000);
     }
   }
 
   return (
-    <section id="contact" className="py-16 bg-slate-100 scroll-mt-24">
-      <div className="container mx-auto px-4 sm:px-6">
+    <section
+      id="contact"
+      className="relative overflow-hidden py-16 scroll-mt-24
+                 bg-gradient-to-br from-blue-700 via-blue-600 to-indigo-700 text-white"
+    >
+      {/* Decorative glows behind everything */}
+      <div className="pointer-events-none absolute -top-24 -right-24 h-72 w-72 rounded-full bg-white/10 blur-3xl -z-10" />
+      <div className="pointer-events-none absolute -bottom-32 -left-20 h-80 w-80 rounded-full bg-indigo-300/10 blur-3xl -z-10" />
+
+      {/* Stars + meteors layer */}
+      <Starfield starCount={160} meteorEveryMs={2600} />
+
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
         <motion.h2
-          className="text-3xl font-bold text-center text-slate-900"
+          className="text-3xl font-bold text-center text-white"
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.45, ease: 'easeOut' }}
