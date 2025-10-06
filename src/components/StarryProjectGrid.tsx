@@ -387,7 +387,9 @@ export default function StarryProjectGrid({
                 <h3 className="text-xl font-semibold mb-2 text-slate-900">
                   {p.title}
                 </h3>
-                <p className="text-black-600 text-xs md:text-sm leading-6">{p.description}</p>
+                <p className="text-slate-600 text-[13px] leading-[1.6] md:text-[15px] md:leading-[1.65]">
+  {p.description}
+</p>
 
 
                 <div className="mt-4 flex justify-between items-center">
