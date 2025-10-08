@@ -21,8 +21,10 @@ export default function Home() {
       <Header />
       <main className="flex-grow">
 
-        {/* (Optional) No anchor for Hero since it's not in the navbar */}
-        <Hero />
+        {/* home */}
+        <section id="home" className={sectionOffset}>
+          <Hero />
+        </section>
 
         {/* About */}
         <section id="about" className={sectionOffset}>

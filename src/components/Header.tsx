@@ -8,6 +8,7 @@ import { Menu, X } from "lucide-react";
 export type NavLink = { href: `#${string}`; label: string };
 
 const navLinks: NavLink[] = [
+  { href: "#home", label: "Home" },
   { href: "#about", label: "About" },
   { href: "#skills", label: "Skills" },
   { href: "#experience", label: "Experience" },
