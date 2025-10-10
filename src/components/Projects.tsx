@@ -40,6 +40,7 @@ const projects: StarryProject[] = [
       "Chart.js",
       "Tailwind CSS",
       "TomTom",
+      "Render",
       "AWS",
       "GitHub",
       "ESLint",

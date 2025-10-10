@@ -21,7 +21,7 @@ export default function Education() {
         <h4 className="text-lg font-semibold text-gray-700">
           BTech in Electronics and Communication Engineering
         </h4>
-        <p className="text-gray-600">DAV Institute of Engineering and Technology, Jalandhar</p>
+        <p className="text-gray-600 pt-1">DAV Institute of Engineering and Technology, Jalandhar</p>
         <div className="flex justify-between text-sm text-gray-500 mt-2">
           <span className="flex items-center gap-1">
             <CalendarCheck2 className="w-4 h-4" /> 2016 - 2020
@@ -37,7 +37,7 @@ export default function Education() {
         <h4 className="text-lg font-semibold text-gray-700">
           PGDM in Web &amp; Mobile App Development and Design
         </h4>
-        <p className="text-gray-600">Langara College, Vancouver</p>
+        <p className="text-gray-600 pt-1">Langara College, Vancouver</p>
         <div className="flex justify-between text-sm text-gray-500 mt-2">
           <span className="flex items-center gap-1">
             <CalendarCheck2 className="w-4 h-4" /> 2024 - 2025

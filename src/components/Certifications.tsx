@@ -3,6 +3,7 @@
 import { BadgeCheck } from 'lucide-react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import React from 'react';
 
 export default function Certifications() {
   const certifications = [
@@ -38,8 +39,58 @@ export default function Certifications() {
     },
   ];
 
+  // --- Mobile pagination state ---
+  const scrollerRef = React.useRef<HTMLDivElement | null>(null);
+  const [pageCount, setPageCount] = React.useState(0);
+  const [pageIndex, setPageIndex] = React.useState(0);
+
+  // Recalculate pages: each "page" equals the visible width of the scroller
+  const recalcPages = React.useCallback(() => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    const count = Math.max(1, Math.ceil(el.scrollWidth / el.clientWidth));
+    setPageCount(count);
+
+    const idx = Math.round(el.scrollLeft / el.clientWidth);
+    setPageIndex(Math.min(count - 1, Math.max(0, idx)));
+  }, []);
+
+  // Attach listeners (scroll + resize)
+  React.useEffect(() => {
+    const el = scrollerRef.current;
+    if (!el) return;
+
+    let raf = 0;
+    const onScroll = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        recalcPages();
+        raf = 0;
+      });
+    };
+
+    const ro = new ResizeObserver(() => recalcPages());
+    ro.observe(el);
+
+    el.addEventListener('scroll', onScroll, { passive: true });
+    recalcPages();
+
+    return () => {
+      el.removeEventListener('scroll', onScroll);
+      ro.disconnect();
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, [recalcPages]);
+
+  // Click a dot -> smooth scroll to that page
+  const goToPage = (i: number) => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    const targetLeft = i * el.clientWidth;
+    el.scrollTo({ left: targetLeft, behavior: 'smooth' });
+  };
+
   return (
-    // 👇 added larger scroll margin top for sticky header offset
     <section id="certifications" className="scroll-mt-23 md:scroll-mt-25">
       <motion.div
         initial={{ opacity: 0, y: 40 }}
@@ -58,7 +109,7 @@ export default function Certifications() {
           Certifications
         </h3>
 
-        {/* Edge fades to hint scroll on mobile */}
+        {/* Edge fades for mobile */}
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-y-20 left-0 w-10 bg-gradient-to-r from-white to-transparent lg:hidden"
@@ -69,7 +120,7 @@ export default function Certifications() {
         />
 
         {/* Hybrid layout: horizontal scroll on mobile, grid on desktop */}
-        <div className="mt-6 overflow-x-auto lg:overflow-visible">
+        <div ref={scrollerRef} className="mt-6 overflow-x-auto lg:overflow-visible">
           <ul
             className="
               flex w-max snap-x snap-mandatory gap-6 pr-2
@@ -85,15 +136,14 @@ export default function Certifications() {
                   rel="noopener noreferrer"
                   aria-label={`View credential: ${cert.title}`}
                   className="
-    group block min-w-[300px] max-w-[300px] flex-shrink-0 rounded-xl
-    bg-gray-50 p-4 shadow-md ring-1 ring-slate-200 transition
-    hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600
-    sm:min-w-[350px] sm:max-w-[350px]
-    lg:min-w-0 lg:max-w-none
-  "
+                    group block min-w-[300px] max-w-[300px] flex-shrink-0 rounded-xl
+                    bg-gray-50 p-4 shadow-md ring-1 ring-slate-200 transition
+                    hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600
+                    sm:min-w-[350px] sm:max-w-[350px]
+                    lg:min-w-0 lg:max-w-none
+                  "
                   whileHover={{ y: -4, scale: 1.03, transition: { duration: 0.22 } }}
                 >
-
                   <div className="mb-3 overflow-hidden rounded-lg">
                     <Image
                       src={cert.image}
@@ -111,6 +161,33 @@ export default function Certifications() {
             ))}
           </ul>
         </div>
+
+        {/* Mobile pagination dots (clickable) */}
+        {pageCount > 1 && (
+          <nav
+            className="mt-4 flex justify-center lg:hidden"
+            aria-label="Certification pages"
+          >
+            <ul className="flex items-center gap-2">
+              {Array.from({ length: pageCount }).map((_, i) => {
+                const active = i === pageIndex;
+                return (
+                  <li key={i}>
+                    <button
+                      type="button"
+                      onClick={() => goToPage(i)}
+                      aria-label={`Go to page ${i + 1} of ${pageCount}`}
+                      aria-current={active ? 'page' : undefined}
+                      className={`h-1.5 rounded-full transition-[width,background-color] duration-200 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600
+                        ${active ? 'w-5 bg-blue-600' : 'w-2.5 bg-slate-300'}
+                      `}
+                    />
+                  </li>
+                );
+              })}
+            </ul>
+          </nav>
+        )}
       </motion.div>
     </section>
   );

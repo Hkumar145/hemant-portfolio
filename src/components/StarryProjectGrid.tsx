@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { ExternalLink, Github } from 'lucide-react';
+import { ExternalLink, Github, Smartphone, Monitor } from 'lucide-react';
 import {
   motion,
   useMotionValue,
@@ -21,6 +21,8 @@ export type StarryProject = {
   link?: string;
   github?: string;
   skills?: string[]; // pills under description
+  /** NEW: show a tiny platform badge on the image */
+  platform?: 'mobile' | 'desktop' | 'web';
 };
 
 type StarryProjectGridProps = {
@@ -42,7 +44,7 @@ type StarryProjectGridProps = {
   children?: React.ReactNode;
   /** Wrapper mode: class for your container around children */
   containerClassName?: string;
-  /** NEW: harmonize chip colors with the background */
+  /** Harmonize chip colors with the background */
   tintColor?: string;
 };
 
@@ -254,7 +256,7 @@ function TiltCard({
 }
 
 /* ---------------------------------------------------------
-   Tag color mapping (clean) + soft tint
+   Helpers: tag color + platform inference
 --------------------------------------------------------- */
 function tagClass(name: string) {
   const s = name.toLowerCase().trim();
@@ -337,6 +339,14 @@ function tagClass(name: string) {
   return 'bg-gray-50 text-gray-800 border-gray-200';
 }
 
+function inferPlatform(p: StarryProject): 'mobile' | 'web' | 'desktop' | undefined {
+  if (p.platform) return p.platform;
+  const ss = (p.skills || []).map(s => s.toLowerCase());
+  if (ss.some(s => s.includes('react native') || s.includes('ios') || s.includes('android'))) return 'mobile';
+  if (ss.some(s => s.includes('next') || s.includes('react') || s.includes('typescript') || s.includes('javascript'))) return 'web';
+  return undefined;
+}
+
 /* ---------------------------------------------------------
    Main component (dual-mode)
 --------------------------------------------------------- */
@@ -407,7 +417,7 @@ export default function StarryProjectGrid({
       }, index * 1000);
       timers.push(t);
     });
-    return () => {
+  return () => {
       timers.forEach(clearTimeout);
       intervals.forEach(clearInterval);
     };
@@ -416,7 +426,7 @@ export default function StarryProjectGrid({
   return (
     <section
       id={id}
-      style={{ ['--tint' as keyof React.CSSProperties]: tintColor }}
+      style={{ ['--tint' as string]: tintColor }}
       className={`relative overflow-hidden py-20 scroll-mt-5 md:scroll-mt-8 ${withGradient ? `${gradientClassName} text-white` : ''}`}
       aria-label={title}
     >
@@ -454,87 +464,108 @@ export default function StarryProjectGrid({
             whileInView="visible"
             viewport={{ once: true, amount: 0.25 }}
           >
-            {projects.map((p, index) => (
-              <TiltCard key={p.title} reduce={!!reduce} variants={item}>
-                <div className="relative w-full h-48 mb-4 spg-perspective">
-                  <div
-                    className={`w-full h-full transition-transform duration-[1000ms] ease-in-out spg-preserve-3d ${
-                      enableFlip && rotated[index] ? 'spg-rotate-180' : 'spg-rotate-0'
-                    }`}
-                  >
-                    <Image
-                      src={p.image}
-                      alt={`${p.title} screenshot`}
-                      fill
-                      priority={index === 0}
-                      className="object-contain rounded-lg spg-backface"
-                    />
-                  </div>
-                </div>
+            {projects.map((p, index) => {
+              const platform = inferPlatform(p);
+              const isMobile = platform === 'mobile';
+              const platformLabel = isMobile ? 'Mobile' : platform ? 'Desktop/Web' : undefined;
 
-                {/* Force dark text on white cards for readability */}
-                <h3 className="text-xl font-semibold mb-2 text-slate-900">
-                  {p.title}
-                </h3>
-
-                <p className="text-slate-600 text-[13px] leading-[1.6] md:text-[15px] md:leading-[1.65]">
-                  {p.description}
-                </p>
-
-                {/* Simple, color-coded skill pills with a soft tint */}
-                {p.skills?.length ? (
-                  <ul className="mt-3 flex flex-wrap gap-2">
-                    {p.skills.map((skill) => (
-                      <li
-                        key={skill}
-                        className={`spg-tinted inline-flex items-center rounded-full border px-2.5 py-1 text-xs font-medium ${tagClass(
-                          skill
-                        )}`}
-                        title={skill}
+              return (
+                <TiltCard key={p.title} reduce={!!reduce} variants={item}>
+                  <div className="relative w-full h-48 mb-4 spg-perspective">
+                    {/* Platform badge */}
+                    {platformLabel && (
+                      <div
+                        className="absolute left-1 top-1 z-10 inline-flex items-center gap-1 rounded-full bg-white/90 px-1 py-1 text-[10px] font-medium text-slate-800 ring-1 ring-slate-200 shadow-sm"
+                        title={platformLabel}
                       >
-                        {skill}
-                      </li>
-                    ))}
-                  </ul>
-                ) : null}
+                        {isMobile ? (
+                          <Smartphone className="h-3.5 w-3.5" aria-hidden="true" />
+                        ) : (
+                          <Monitor className="h-3.5 w-3.5" aria-hidden="true" />
+                        )}
+                        <span className="hidden sm:inline">{isMobile ? platformLabel : 'Web'}</span>
+                      </div>
+                    )}
 
-                <div className="mt-4 flex justify-between items-center">
-                  {p.link ? (
-                    <motion.a
-                      href={p.link}
-                      initial={{ opacity: 0, y: 10 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      whileHover={{ scale: reduce ? 1 : 1.05 }}
-                      transition={{ duration: 0.35, ease: EASE }}
-                      className="group relative flex items-center gap-1 text-blue-600"
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    <div
+                      className={`w-full h-full transition-transform duration-[1000ms] ease-in-out spg-preserve-3d ${
+                        enableFlip && rotated[index] ? 'spg-rotate-180' : 'spg-rotate-0'
+                      }`}
                     >
-                      <ExternalLink className="w-4 h-4" />
-                      <span className="text-sm hidden sm:inline">Live Site</span>
-                    </motion.a>
-                  ) : (
-                    <span />
-                  )}
+                      <Image
+                        src={p.image}
+                        alt={`${p.title} screenshot`}
+                        fill
+                        priority={index === 0}
+                        className="object-contain rounded-lg spg-backface"
+                      />
+                    </div>
+                  </div>
 
-                  {p.github && (
-                    <motion.a
-                      href={p.github}
-                      initial={{ opacity: 0, y: 10 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      whileHover={{ scale: reduce ? 1 : 1.05 }}
-                      transition={{ duration: 0.35, ease: EASE, delay: 0.05 }}
-                      className="group relative flex items-center gap-1 text-slate-700"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <Github className="w-4 h-4" />
-                      <span className="text-sm hidden sm:inline">GitHub</span>
-                    </motion.a>
-                  )}
-                </div>
-              </TiltCard>
-            ))}
+                  {/* Force dark text on white cards for readability */}
+                  <h3 className="text-xl font-semibold mb-2 text-slate-900">
+                    {p.title}
+                  </h3>
+
+                  <p className="text-slate-600 text-[13px] leading-[1.6] md:text-[15px] md:leading-[1.65]">
+                    {p.description}
+                  </p>
+
+                  {/* Simple, color-coded skill pills with a soft tint */}
+                  {p.skills?.length ? (
+                    <ul className="mt-3 flex flex-wrap gap-2">
+                      {p.skills.map((skill) => (
+                        <li
+                          key={skill}
+                          className={`spg-tinted inline-flex items-center rounded-full border px-2.5 py-1 text-xs font-medium ${tagClass(
+                            skill
+                          )}`}
+                          title={skill}
+                        >
+                          {skill}
+                        </li>
+                      ))}
+                    </ul>
+                  ) : null}
+
+                  <div className="mt-4 flex justify-between items-center pt-2">
+                    {p.link ? (
+                      <motion.a
+                        href={p.link}
+                        initial={{ opacity: 0, y: 10 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        whileHover={{ scale: reduce ? 1 : 1.14 }}
+                        transition={{ duration: 0.35, ease: EASE }}
+                        className="group relative flex items-center gap-1 text-blue-600"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <ExternalLink className="w-5 h-5" />
+                        <span className="text-sm hidden sm:inline">Live Site</span>
+                      </motion.a>
+                    ) : (
+                      <span />
+                    )}
+
+                    {p.github && (
+                      <motion.a
+                        href={p.github}
+                        initial={{ opacity: 0, y: 10 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        whileHover={{ scale: reduce ? 1 : 1.14 }}
+                        transition={{ duration: 0.35, ease: EASE, delay: 0.05 }}
+                        className="group relative flex items-center gap-1 text-slate-700"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Github className="w-5 h-5" />
+                        <span className="text-sm hidden sm:inline">GitHub</span>
+                      </motion.a>
+                    )}
+                  </div>
+                </TiltCard>
+              );
+            })}
           </motion.div>
         )}
       </div>
@@ -549,7 +580,6 @@ export default function StarryProjectGrid({
 
         /* Subtle, cohesive tint — no glow */
         .spg-tinted {
-          /* nudge each pill toward the page tint while keeping its own color */
           border-color: color-mix(in srgb, var(--tint, #3B5BFF) 30%, currentColor);
           background-color: color-mix(in srgb, var(--tint, #3B5BFF) 10%, transparent);
           color: color-mix(in srgb, var(--tint, #3B5BFF) 22%, #111827);
