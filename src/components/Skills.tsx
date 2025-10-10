@@ -5,7 +5,13 @@ import { Code } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useMemo, useState } from 'react';
 
-type Category = 'Languages' | 'Frontend' | 'Backend' | 'Design' | 'Others';
+type Category =
+  | 'Languages'
+  | 'Frontend'
+  | 'Backend'
+  | 'Design'
+  | 'Cloud & DevOps'
+  | 'Others';
 
 type Skill = {
   name: string;
@@ -38,11 +44,26 @@ const SKILLS: Skill[] = [
   // Design
   { name: 'Figma', src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg', alt: 'Figma logo', category: 'Design' },
 
+  // Cloud & DevOps
+  { name: 'AWS', src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-original-wordmark.svg', alt: 'AWS logo', category: 'Cloud & DevOps' },
+  { name: 'Google Cloud', src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/googlecloud/googlecloud-original.svg', alt: 'Google Cloud logo', category: 'Cloud & DevOps' },
+  { name: 'Vercel', src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vercel/vercel-original.svg', alt: 'Vercel logo', category: 'Cloud & DevOps' },
+  { name: 'Linux', src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg', alt: 'Linux logo', category: 'Cloud & DevOps' },
+
   // Others
   { name: 'GitHub', src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg', alt: 'GitHub logo', category: 'Others' },
+  { name: 'Jira', src: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jira/jira-original.svg', alt: 'Jira logo', category: 'Others' },
 ];
 
-const TABS: Array<'All' | Category> = ['All', 'Languages', 'Frontend', 'Backend', 'Design', 'Others'];
+const TABS: Array<'All' | Category> = [
+  'All',
+  'Languages',
+  'Frontend',
+  'Backend',
+  'Design',
+  'Cloud & DevOps',
+  'Others',
+];
 
 export default function Skills() {
   const [active, setActive] = useState<'All' | Category>('All');
@@ -118,7 +139,6 @@ export default function Skills() {
         ))}
       </motion.div>
 
-      {/* Small note, like Vin’s “There is still so much to learn…” */}
       <p className="text-sm text-gray-500">
         Always learning — this list will keep growing!
       </p>
