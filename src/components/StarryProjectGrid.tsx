@@ -20,6 +20,7 @@ export type StarryProject = {
   image: string;
   link?: string;
   github?: string;
+  skills?: string[]; // pills under description
 };
 
 type StarryProjectGridProps = {
@@ -41,6 +42,8 @@ type StarryProjectGridProps = {
   children?: React.ReactNode;
   /** Wrapper mode: class for your container around children */
   containerClassName?: string;
+  /** NEW: harmonize chip colors with the background */
+  tintColor?: string;
 };
 
 /* ---------------------------------------------------------
@@ -251,6 +254,90 @@ function TiltCard({
 }
 
 /* ---------------------------------------------------------
+   Tag color mapping (clean) + soft tint
+--------------------------------------------------------- */
+function tagClass(name: string) {
+  const s = name.toLowerCase().trim();
+
+  // Cloud / DevOps
+  if (s === 'aws' || s.includes('api gateway') || s.includes('rds'))
+    return 'bg-yellow-50 text-yellow-900 border-yellow-200';
+  if (s.includes('gcp') || s.includes('google cloud'))
+    return 'bg-blue-50 text-blue-900 border-blue-200';
+  if (s.includes('kubernetes') || s === 'eks')
+    return 'bg-sky-50 text-sky-900 border-sky-200';
+  if (s.includes('docker'))
+    return 'bg-indigo-50 text-indigo-900 border-indigo-200';
+  if (s.includes('terraform'))
+    return 'bg-emerald-50 text-emerald-900 border-emerald-200';
+  if (s.includes('iam'))
+    return 'bg-rose-50 text-rose-900 border-rose-200';
+  if (s.includes('pagerduty'))
+    return 'bg-amber-50 text-amber-900 border-amber-200';
+
+  // Databases / Data
+  if (s.includes('mongodb'))
+    return 'bg-green-50 text-green-900 border-green-200';
+  if (s.includes('postgres'))
+    return 'bg-teal-50 text-teal-900 border-teal-200';
+
+  // Web / App stacks
+  if (s.includes('react native'))
+    return 'bg-cyan-50 text-cyan-900 border-cyan-200';
+  if (s.includes('react') || s.includes('next.js') || s === 'next' || s === 'nextjs' || s.includes('next'))
+    return 'bg-cyan-50 text-cyan-900 border-cyan-200';
+  if (s.includes('typescript'))
+    return 'bg-blue-50 text-blue-900 border-blue-200';
+  if (s.includes('javascript'))
+    return 'bg-yellow-50 text-yellow-900 border-yellow-200';
+  if (s.includes('tailwind'))
+    return 'bg-sky-50 text-sky-900 border-sky-200';
+  if (s.includes('node') || s.includes('express'))
+    return 'bg-lime-50 text-lime-900 border-lime-200';
+  if (s.includes('nestjs'))
+    return 'bg-rose-50 text-rose-900 border-rose-200';
+
+  // Services / Tools
+  if (s.includes('firebase'))
+    return 'bg-amber-50 text-amber-900 border-amber-200';
+  if (s.includes('openai') || s.includes('open-ai'))
+    return 'bg-violet-50 text-violet-900 border-violet-200';
+  if (s.includes('virustotal') || s.includes('virus total'))
+    return 'bg-stone-50 text-stone-900 border-stone-200';
+  if (s.includes('new relic'))
+    return 'bg-purple-50 text-purple-900 border-purple-200';
+  if (s.includes('stripe'))
+    return 'bg-violet-50 text-violet-900 border-violet-200';
+  if (s.includes('tomtom'))
+    return 'bg-zinc-50 text-zinc-900 border-zinc-200';
+  if (s.includes('vercel'))
+    return 'bg-zinc-50 text-zinc-900 border-zinc-200';
+  if (s.includes('netlify'))
+    return 'bg-emerald-50 text-emerald-900 border-emerald-200';
+  if (s.includes('bootstrap'))
+    return 'bg-fuchsia-50 text-fuchsia-900 border-fuchsia-200';
+  if (s.includes('figma'))
+    return 'bg-pink-50 text-pink-900 border-pink-200';
+  if (s.includes('framer'))
+    return 'bg-violet-50 text-violet-900 border-violet-200';
+  if (s.includes('jira'))
+    return 'bg-blue-50 text-blue-900 border-blue-200';
+  if (s.includes('github'))
+    return 'bg-slate-50 text-slate-900 border-slate-200';
+  if (s.includes('eslint'))
+    return 'bg-indigo-50 text-indigo-900 border-indigo-200';
+  if (s.includes('prettier'))
+    return 'bg-fuchsia-50 text-fuchsia-900 border-fuchsia-200';
+
+  // Languages
+  if (s.includes('python'))
+    return 'bg-slate-50 text-slate-900 border-slate-200';
+
+  // Fallback
+  return 'bg-gray-50 text-gray-800 border-gray-200';
+}
+
+/* ---------------------------------------------------------
    Main component (dual-mode)
 --------------------------------------------------------- */
 export default function StarryProjectGrid({
@@ -267,6 +354,7 @@ export default function StarryProjectGrid({
   flipIntervalMs = 5000,
   children,
   containerClassName = '',
+  tintColor = '#3B5BFF', // blue-indigo from your screenshot
 }: StarryProjectGridProps) {
   const reduce = useReducedMotion();
   const isWrapperMode = (!projects || projects.length === 0) && !!children;
@@ -328,6 +416,7 @@ export default function StarryProjectGrid({
   return (
     <section
       id={id}
+      style={{ ['--tint' as keyof React.CSSProperties]: tintColor }}
       className={`relative overflow-hidden py-20 scroll-mt-5 md:scroll-mt-8 ${withGradient ? `${gradientClassName} text-white` : ''}`}
       aria-label={title}
     >
@@ -387,10 +476,27 @@ export default function StarryProjectGrid({
                 <h3 className="text-xl font-semibold mb-2 text-slate-900">
                   {p.title}
                 </h3>
-                <p className="text-slate-600 text-[13px] leading-[1.6] md:text-[15px] md:leading-[1.65]">
-  {p.description}
-</p>
 
+                <p className="text-slate-600 text-[13px] leading-[1.6] md:text-[15px] md:leading-[1.65]">
+                  {p.description}
+                </p>
+
+                {/* Simple, color-coded skill pills with a soft tint */}
+                {p.skills?.length ? (
+                  <ul className="mt-3 flex flex-wrap gap-2">
+                    {p.skills.map((skill) => (
+                      <li
+                        key={skill}
+                        className={`spg-tinted inline-flex items-center rounded-full border px-2.5 py-1 text-xs font-medium ${tagClass(
+                          skill
+                        )}`}
+                        title={skill}
+                      >
+                        {skill}
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
 
                 <div className="mt-4 flex justify-between items-center">
                   {p.link ? (
@@ -433,13 +539,31 @@ export default function StarryProjectGrid({
         )}
       </div>
 
-      {/* Scoped styles for 3D flip utilities (no Tailwind plugin needed) */}
+      {/* Scoped styles for 3D flip utilities + soft tint */}
       <style jsx>{`
         .spg-perspective { perspective: 1000px; }
         .spg-preserve-3d { transform-style: preserve-3d; }
         .spg-backface { backface-visibility: hidden; }
         .spg-rotate-0 { transform: rotateY(0deg); }
         .spg-rotate-180 { transform: rotateY(180deg); }
+
+        /* Subtle, cohesive tint — no glow */
+        .spg-tinted {
+          /* nudge each pill toward the page tint while keeping its own color */
+          border-color: color-mix(in srgb, var(--tint, #3B5BFF) 30%, currentColor);
+          background-color: color-mix(in srgb, var(--tint, #3B5BFF) 10%, transparent);
+          color: color-mix(in srgb, var(--tint, #3B5BFF) 22%, #111827);
+          transition: background-color .2s ease, border-color .2s ease, color .2s ease;
+        }
+        .spg-tinted:hover {
+          background-color: color-mix(in srgb, var(--tint, #3B5BFF) 16%, white);
+          border-color: color-mix(in srgb, var(--tint, #3B5BFF) 45%, currentColor);
+        }
+        @media (prefers-contrast: more) {
+          .spg-tinted {
+            border-color: color-mix(in srgb, var(--tint, #3B5BFF) 55%, #111827);
+          }
+        }
       `}</style>
     </section>
   );
