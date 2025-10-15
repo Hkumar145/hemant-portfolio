@@ -10,17 +10,17 @@ export default function Certifications() {
     {
       title: 'GCP Professional Database Engineer',
       image: '/certs/gcp-database.png',
-      link: 'https://google.accredible.com/545d42fa-76ed-475e-9d5c-c7dc5de94a8c#acc.VbEYDwmc',
+      link: 'https://drive.google.com/file/d/1XPxOQo82fh-2YGYNEU99Nsb82qcoJgie/view?usp=sharing',
     },
     {
       title: 'GCP Associate Cloud Engineer',
       image: '/certs/gcp-associate.png',
-      link: 'https://google.accredible.com/26190082-c3ea-40d7-8574-0f844560506a#acc.CYF1POAn',
+      link: 'https://drive.google.com/file/d/1iWPV0KdqcihBlg3Cr8lMscvSptrrp6fB/view?usp=sharing',
     },
     {
       title: 'GCP Professional Cloud Architect',
       image: '/certs/gcp-architect.png',
-      link: 'https://google.accredible.com/a03d27de-e32f-44ae-b774-c6d987b6426b#acc.iwoaZU7j',
+      link: 'https://drive.google.com/file/d/1s_RNuY4XJ9Gk9t6shcSxdHm4sIuHIRYx/view?usp=sharing',
     },
     {
       title: 'Huawei Networking, Routing and Switching',
