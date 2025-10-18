@@ -20,30 +20,15 @@ type IssuerTheme = { issuerChip: string; yearPill: string };
 function getIssuerTheme(issuer?: string): IssuerTheme {
   switch ((issuer || '').toLowerCase()) {
     case 'google cloud':
-      return {
-        issuerChip: 'bg-slate-900/80 text-white ring-white/15',
-        yearPill: 'bg-gradient-to-r from-blue-500 to-indigo-600 text-white',
-      };
+      return { issuerChip: 'bg-slate-900/80 text-white ring-white/15', yearPill: 'bg-gradient-to-r from-blue-500 to-indigo-600 text-white' };
     case 'huawei':
-      return {
-        issuerChip: 'bg-slate-900/80 text-white ring-white/15',
-        yearPill: 'bg-gradient-to-r from-rose-500 to-red-600 text-white',
-      };
+      return { issuerChip: 'bg-slate-900/80 text-white ring-white/15', yearPill: 'bg-gradient-to-r from-rose-500 to-red-600 text-white' };
     case 'langara college':
-      return {
-        issuerChip: 'bg-slate-900/80 text-white ring-white/15',
-        yearPill: 'bg-gradient-to-r from-orange-500 to-amber-600 text-white',
-      };
+      return { issuerChip: 'bg-slate-900/80 text-white ring-white/15', yearPill: 'bg-gradient-to-r from-orange-500 to-amber-600 text-white' };
     case 'industrial training':
-      return {
-        issuerChip: 'bg-slate-900/80 text-white ring-white/15',
-        yearPill: 'bg-gradient-to-r from-slate-600 to-slate-800 text-white',
-      };
+      return { issuerChip: 'bg-slate-900/80 text-white ring-white/15', yearPill: 'bg-gradient-to-r from-slate-600 to-slate-800 text-white' };
     default:
-      return {
-        issuerChip: 'bg-slate-900/80 text-white ring-white/15',
-        yearPill: 'bg-gradient-to-r from-sky-500 to-cyan-600 text-white',
-      };
+      return { issuerChip: 'bg-slate-900/80 text-white ring-white/15', yearPill: 'bg-gradient-to-r from-sky-500 to-cyan-600 text-white' };
   }
 }
 function toneClasses(tone: BadgeTone | undefined) {
@@ -71,28 +56,16 @@ function useMediaQuery(query: string) {
     };
     const m = mql as LegacyMql;
 
-    const onChangeEvent = (e: Event) => {
-      const ev = e as MediaQueryListEvent;
-      setMatches(ev.matches);
-    };
-    const onChangeLegacy = (e: MediaQueryListEvent) => {
-      setMatches(e.matches);
-    };
+    const onChangeEvent = (e: Event) => setMatches((e as MediaQueryListEvent).matches);
+    const onChangeLegacy = (e: MediaQueryListEvent) => setMatches(e.matches);
 
     setMatches(m.matches);
-
-    if ('addEventListener' in m && typeof m.addEventListener === 'function') {
-      m.addEventListener('change', onChangeEvent);
-    } else if (typeof m.addListener === 'function') {
-      m.addListener(onChangeLegacy);
-    }
+    if ('addEventListener' in m && typeof m.addEventListener === 'function') m.addEventListener('change', onChangeEvent);
+    else if (typeof m.addListener === 'function') m.addListener(onChangeLegacy);
 
     return () => {
-      if ('removeEventListener' in m && typeof m.removeEventListener === 'function') {
-        m.removeEventListener('change', onChangeEvent);
-      } else if (typeof m.removeListener === 'function') {
-        m.removeListener(onChangeLegacy);
-      }
+      if ('removeEventListener' in m && typeof m.removeEventListener === 'function') m.removeEventListener('change', onChangeEvent);
+      else if (typeof m.removeListener === 'function') m.removeListener(onChangeLegacy);
     };
   }, [query]);
   return matches;
@@ -100,70 +73,19 @@ function useMediaQuery(query: string) {
 
 export default function Certifications() {
   const certifications: Cert[] = [
-    {
-      title: 'GCP Professional Database Engineer',
-      image: '/certs/gcp-database.png',
-      link: 'https://drive.google.com/file/d/1XPxOQo82fh-2YGYNEU99Nsb82qcoJgie/view?usp=sharing',
-      issuer: 'Google Cloud',
-      issuerLogo: 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/googlecloud.svg',
-      year: '2024',
-    },
-    {
-      title: 'GCP Associate Cloud Engineer',
-      image: '/certs/gcp-associate.png',
-      link: 'https://drive.google.com/file/d/1iWPV0KdqcihBlg3Cr8lMscvSptrrp6fB/view?usp=sharing',
-      issuer: 'Google Cloud',
-      issuerLogo: 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/googlecloud.svg',
-      year: '2023',
-    },
-    {
-      title: 'GCP Professional Cloud Architect',
-      image: '/certs/gcp-architect.png',
-      link: 'https://drive.google.com/file/d/1s_RNuY4XJ9Gk9t6shcSxdHm4sIuHIRYx/view?usp=sharing',
-      issuer: 'Google Cloud',
-      issuerLogo: 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/googlecloud.svg',
-      year: '2024',
-    },
-    {
-      title: 'Safe Milo Capstone Winner',
-      image: '/certs/HemantSafeMilo.png',
-      link: 'https://drive.google.com/file/d/1kwff7PlW-lTEFcs_-3QWL4uZc6p764e2/view?usp=sharing',
-      issuer: 'Langara College',
-      issuerLogo: 'https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f393.svg',
-      year: '2025',
-      badge: { label: 'Award', tone: 'amber' },
-    },
-    {
-      title: 'Huawei Networking, Routing and Switching',
-      image: '/certs/huawei.png',
-      link: 'https://drive.google.com/file/d/1T6ZLIF9osM4KIXNSx-HAx12BDLkLFhff/view',
-      issuer: 'Huawei',
-      issuerLogo: 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/huawei.svg',
-      year: '2020',
-    },
-    {
-      title: 'Industrial Training in Python Django Stack',
-      image: '/certs/Django.png',
-      link: 'https://drive.google.com/file/d/17ciSLTC_v1yBPq9tzfuZVaYmNuEdZTBC/view',
-      issuer: 'Industrial Training',
-      issuerLogo: 'https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f4da.svg',
-      year: '2019',
-    },
-    {
-      title: 'Industrial Training in Core Java',
-      image: '/certs/java.png',
-      link: 'https://drive.google.com/file/d/1RuR5886u95m5vN505nHpHBaWDZJPQa7A/view',
-      issuer: 'Industrial Training',
-      issuerLogo: 'https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f4da.svg',
-      year: '2019',
-    },
+    { title: 'GCP Professional Database Engineer', image: '/certs/gcp-database.png', link: 'https://drive.google.com/file/d/1XPxOQo82fh-2YGYNEU99Nsb82qcoJgie/view?usp=sharing', issuer: 'Google Cloud', issuerLogo: 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/googlecloud.svg', year: '2024' },
+    { title: 'GCP Associate Cloud Engineer', image: '/certs/gcp-associate.png', link: 'https://drive.google.com/file/d/1iWPV0KdqcihBlg3Cr8lMscvSptrrp6fB/view?usp=sharing', issuer: 'Google Cloud', issuerLogo: 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/googlecloud.svg', year: '2023' },
+    { title: 'GCP Professional Cloud Architect', image: '/certs/gcp-architect.png', link: 'https://drive.google.com/file/d/1s_RNuY4XJ9Gk9t6shcSxdHm4sIuHIRYx/view?usp=sharing', issuer: 'Google Cloud', issuerLogo: 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/googlecloud.svg', year: '2024' },
+    { title: 'Safe Milo Capstone Winner', image: '/certs/HemantSafeMilo.png', link: 'https://drive.google.com/file/d/1kwff7PlW-lTEFcs_-3QWL4uZc6p764e2/view?usp=sharing', issuer: 'Langara College', issuerLogo: 'https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f393.svg', year: '2025', badge: { label: 'Award', tone: 'amber' } },
+    { title: 'Huawei Networking, Routing and Switching', image: '/certs/huawei.png', link: 'https://drive.google.com/file/d/1T6ZLIF9osM4KIXNSx-HAx12BDLkLFhff/view', issuer: 'Huawei', issuerLogo: 'https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/huawei.svg', year: '2020' },
+    { title: 'Industrial Training in Python Django Stack', image: '/certs/Django.png', link: 'https://drive.google.com/file/d/17ciSLTC_v1yBPq9tzfuZVaYmNuEdZTBC/view', issuer: 'Industrial Training', issuerLogo: 'https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f4da.svg', year: '2019' },
+    { title: 'Industrial Training in Core Java', image: '/certs/java.png', link: 'https://drive.google.com/file/d/1RuR5886u95m5vN505nHpHBaWDZJPQa7A/view', issuer: 'Industrial Training', issuerLogo: 'https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f4da.svg', year: '2019' },
   ];
 
   // layout flags
-  const isGridMd = useMediaQuery('(min-width: 768px) and (max-width: 1023.98px)'); // md only
-  const isGridLgUp = useMediaQuery('(min-width: 1024px)'); // lg+
+  const isGridMd = useMediaQuery('(min-width: 768px) and (max-width: 1023.98px)');
+  const isGridLgUp = useMediaQuery('(min-width: 1024px)');
 
-  // constants for grid defaults
   const MD_DEFAULT = 4; // 2×2
   const LG_DEFAULT = 6; // 3×3
 
@@ -179,11 +101,8 @@ export default function Certifications() {
 
   // compute visible items per layout
   let visibleCerts = certifications;
-  if (isGridMd) {
-    visibleCerts = showAllGrid ? certifications : certifications.slice(0, MD_DEFAULT);
-  } else if (isGridLgUp) {
-    visibleCerts = showAllGrid ? certifications : certifications.slice(0, LG_DEFAULT);
-  } // horizontal shows all
+  if (isGridMd) visibleCerts = showAllGrid ? certifications : certifications.slice(0, MD_DEFAULT);
+  else if (isGridLgUp) visibleCerts = showAllGrid ? certifications : certifications.slice(0, LG_DEFAULT);
 
   /** ---------- helpers to center items & compute active index ---------- */
   const centerItem = React.useCallback((i: number, behavior: ScrollBehavior = 'auto') => {
@@ -192,7 +111,6 @@ export default function Certifications() {
     const items = el.querySelectorAll('li');
     const item = items[i] as HTMLElement | undefined;
     if (!item) return;
-
     const left = item.offsetLeft;
     const target = Math.max(0, left + item.clientWidth / 2 - el.clientWidth / 2);
     el.scrollTo({ left: target, behavior });
@@ -203,15 +121,11 @@ export default function Certifications() {
     if (!el) return 0;
     const items = Array.from(el.querySelectorAll('li')) as HTMLElement[];
     const center = el.scrollLeft + el.clientWidth / 2;
-    let best = 0;
-    let bestDelta = Infinity;
+    let best = 0, bestDelta = Infinity;
     items.forEach((it, idx) => {
       const c = it.offsetLeft + it.clientWidth / 2;
       const d = Math.abs(c - center);
-      if (d < bestDelta) {
-        bestDelta = d;
-        best = idx;
-      }
+      if (d < bestDelta) { bestDelta = d; best = idx; }
     });
     return best;
   }, []);
@@ -223,7 +137,6 @@ export default function Certifications() {
     const el = scrollerRef.current;
     if (!el) return;
     if (isHorizontal) {
-      // one dot per item, track centered card
       setPageCount(certifications.length);
       setPageIndex(nearestCenteredIndex());
     } else {
@@ -240,10 +153,7 @@ export default function Certifications() {
     let raf = 0;
     const onScroll = () => {
       if (raf) return;
-      raf = requestAnimationFrame(() => {
-        recalcPages();
-        raf = 0;
-      });
+      raf = requestAnimationFrame(() => { recalcPages(); raf = 0; });
     };
     const ro = new ResizeObserver(() => recalcPages());
     ro.observe(el);
@@ -260,11 +170,8 @@ export default function Certifications() {
   React.useEffect(() => {
     if (!isHorizontal) return;
     const t0 = requestAnimationFrame(() => centerItem(0, 'auto'));
-    const t1 = setTimeout(() => centerItem(0, 'auto'), 250); // after images settle
-    return () => {
-      cancelAnimationFrame(t0);
-      clearTimeout(t1);
-    };
+    const t1 = setTimeout(() => centerItem(0, 'auto'), 250);
+    return () => { cancelAnimationFrame(t0); clearTimeout(t1); };
   }, [isHorizontal, centerItem]);
 
   return (
@@ -283,24 +190,22 @@ export default function Certifications() {
         </h3>
 
         {/* mobile edge fades */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-y-20 left-0 w-10 bg-gradient-to-r from-white to-transparent md:hidden z-0"
-        />
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-y-20 right-0 w-10 bg-gradient-to-l from-white to-transparent md:hidden z-0"
-        />
+        <div aria-hidden className="pointer-events-none absolute inset-y-20 left-0 w-10 bg-gradient-to-r from-white to-transparent md:hidden z-0" />
+        <div aria-hidden className="pointer-events-none absolute inset-y-20 right-0 w-10 bg-gradient-to-l from-white to-transparent md:hidden z-0" />
 
         {/* scroller / grid container */}
         <div
           ref={scrollerRef}
-          className="mt-0 overflow-x-auto overflow-y-visible md:overflow-visible pt-4 pl-0.5 pb-2 md:pb-0"
+          className="mt-0 overflow-x-auto overflow-y-visible md:overflow-visible pt-4 /* pl-0.5 removed */ pb-2 md:pb-0"
         >
           <ul
             id="certs-list"
             className="
-              flex w-max snap-x snap-mandatory gap-4 pr-2 pt-2
+              flex w-max snap-x snap-mandatory gap-4 pt-2
+              /* symmetric gutters so the centered card is truly centered */
+              pl-[calc(50%-160px)] pr-[calc(50%-160px)]
+              sm:pl-[calc(50%-175px)] sm:pr-[calc(50%-175px)]
+              md:pl-0 md:pr-0
               md:grid md:w-auto md:grid-cols-2 md:gap-4
               lg:grid-cols-3
             "
@@ -341,7 +246,7 @@ export default function Certifications() {
                           src={cert.image}
                           alt={cert.title}
                           fill
-                          className="object-cover mt-0.2"
+                          className="object-cover object-center"
                           sizes="(max-width: 768px) 340px, (max-width: 1024px) 360px, 420px"
                           priority={index < 2}
                         />
@@ -351,34 +256,17 @@ export default function Certifications() {
                     {/* Footer: issuer + year */}
                     <div className="mt-2 flex items-center justify-between">
                       {(cert.issuer || cert.issuerLogo) && (
-                        <span
-                          className={[
-                            'inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-medium ring-1',
-                            theme.issuerChip,
-                          ].join(' ')}
-                        >
+                        <span className={['inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-medium ring-1', theme.issuerChip].join(' ')}>
                           {cert.issuerLogo && (
                             <span className="inline-flex h-4 w-4 items-center justify-center rounded-full bg-white/90">
-                              <Image
-                                src={cert.issuerLogo}
-                                alt={`${cert.issuer ?? 'Issuer'} logo`}
-                                width={12}
-                                height={12}
-                                className="h-3 w-3 object-contain"
-                              />
+                              <Image src={cert.issuerLogo} alt={`${cert.issuer ?? 'Issuer'} logo`} width={12} height={12} className="h-3 w-3 object-contain" />
                             </span>
                           )}
                           <span className="leading-none">{cert.issuer}</span>
                         </span>
                       )}
                       {cert.year && (
-                        <span
-                          className={[
-                            'ml-3 inline-flex items-center rounded-full px-2 py-1 text-[11px] font-semibold',
-                            theme.yearPill,
-                            'ring-1 ring-black/10 shadow-sm',
-                          ].join(' ')}
-                        >
+                        <span className={['ml-3 inline-flex items-center rounded-full px-2 py-1 text-[11px] font-semibold', theme.yearPill, 'ring-1 ring-black/10 shadow-sm'].join(' ')}>
                           {cert.year}
                         </span>
                       )}
@@ -403,9 +291,7 @@ export default function Certifications() {
                       onClick={() => goToPage(i)}
                       aria-label={`Go to certificate ${i + 1} of ${pageCount}`}
                       aria-current={active ? 'page' : undefined}
-                      className={`h-1.5 rounded-full transition-[width,background-color] duration-200 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 ${
-                        active ? 'w-5 bg-blue-600' : 'w-2.5 bg-slate-300'
-                      }`}
+                      className={`h-1.5 rounded-full transition-[width,background-color] duration-200 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 ${active ? 'w-5 bg-blue-600' : 'w-2.5 bg-slate-300'}`}
                     />
                   </li>
                 );
@@ -415,8 +301,7 @@ export default function Certifications() {
         )}
 
         {/* View all — only on grid (md 2×2 or lg 3×3), not on horizontal */}
-        {((isGridMd && certifications.length > MD_DEFAULT) ||
-          (isGridLgUp && certifications.length > LG_DEFAULT)) && (
+        {((isGridMd && certifications.length > MD_DEFAULT) || (isGridLgUp && certifications.length > LG_DEFAULT)) && (
           <div className="mt-6 flex justify-center">
             <button
               type="button"
@@ -426,13 +311,9 @@ export default function Certifications() {
               aria-controls="certs-list"
             >
               {showAllGrid ? (
-                <>
-                  Show less <ChevronUp className="h-4 w-4" aria-hidden />
-                </>
+                <>Show less <ChevronUp className="h-4 w-4" aria-hidden /></>
               ) : (
-                <>
-                  View all ({certifications.length}) <ChevronDown className="h-4 w-4" aria-hidden />
-                </>
+                <>View all ({certifications.length}) <ChevronDown className="h-4 w-4" aria-hidden /></>
               )}
             </button>
           </div>
