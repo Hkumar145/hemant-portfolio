@@ -199,18 +199,20 @@ export default function Certifications() {
           className="mt-0 overflow-x-auto overflow-y-visible md:overflow-visible pt-4 /* pl-0.5 removed */ pb-2 md:pb-0"
         >
           <ul
-            id="certs-list"
-            className="
-              flex w-max snap-x snap-mandatory gap-4 pt-2
-              /* symmetric gutters so the centered card is truly centered */
-              pl-[calc(50%-160px)] pr-[calc(50%-160px)]
-              sm:pl-[calc(50%-175px)] sm:pr-[calc(50%-175px)]
-              md:pl-0 md:pr-0
-              md:grid md:w-auto md:grid-cols-2 md:gap-4
-              lg:grid-cols-3
-            "
-            role="list"
-          >
+  id="certs-list"
+  className="
+    flex w-max snap-x snap-mandatory gap-4 pt-2 
+    /* mobile: center the first/last card with equal side gutters */
+    pl-[2vw] pr-[5vw]
+    /* when the card snaps to 360px on sm, gutters = (100% - 360)/2 */
+    sm:pl-2 sm:pr-[calc(50%-180px)]
+    md:pl-0 md:pr-0
+    md:grid md:w-auto md:grid-cols-2 md:gap-4
+    lg:grid-cols-3
+  "
+  role="list"
+>
+
             {visibleCerts.map((cert, index) => {
               const theme = getIssuerTheme(cert.issuer);
               return (
@@ -221,7 +223,7 @@ export default function Certifications() {
                     rel="noopener noreferrer"
                     aria-label={`Open certificate: ${cert.title}`}
                     className="
-                      group relative block min-w-[320px] max-w-[320px] sm:min-w-[350px] sm:max-w-[350px]
+                      group relative block min-w-[325px] max-w-[325px] sm:min-w-[350px] sm:max-w-[350px]
                       md:min-w-0 md:max-w-none flex-shrink-0 rounded-xl
                       bg-gray-50 p-4 shadow-md ring-1 ring-slate-200 transition
                       hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600
