@@ -7,10 +7,10 @@ import { useMemo, useState } from 'react';
 
 type Category =
   | 'Languages'
+  | 'Cloud & DevOps'
   | 'Frontend'
   | 'Backend'
   | 'Design'
-  | 'Cloud & DevOps'
   | 'Others';
 
 type Skill = {
@@ -131,7 +131,7 @@ export default function Skills() {
               alt={skill.alt}
               width={60}
               height={60}
-              className="object-contain"
+              className="object-contain "
               loading="lazy"
             />
             <span className="text-sm text-gray-700 mt-2 text-center">{skill.name}</span>

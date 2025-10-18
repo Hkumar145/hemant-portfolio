@@ -1,16 +1,13 @@
-import type { NextConfig } from "next";
+// next.config.ts
+import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  /* config options here */
-   images: {
+  images: {
     remotePatterns: [
-      { protocol: 'https', hostname: 'cdn.jsdelivr.net' },
-      { protocol: 'https', hostname: 'cdnjs.cloudflare.com' },
-      // Uncomment if you switch to Wikipedia or other sources later:
-      // { protocol: 'https', hostname: 'upload.wikimedia.org' },
+      { protocol: 'https', hostname: 'cdn.jsdelivr.net', pathname: '/gh/simple-icons/simple-icons/icons/**' },
+      { protocol: 'https', hostname: 'cdnjs.cloudflare.com', pathname: '/ajax/libs/twemoji/**' },
     ],
-    domains: ['cdn.jsdelivr.net'],
-    
+    formats: ['image/avif', 'image/webp'],
   },
 };
 
