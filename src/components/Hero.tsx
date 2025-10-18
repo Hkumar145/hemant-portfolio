@@ -79,7 +79,7 @@ export default function Hero() {
 
             <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-5">
               <a
-                href="/Hemant_Kumar_Developer-Cloud-Engineer.pdf"
+                href="/Hemant_Kumar_Resume.pdf"
                 className="inline-flex items-center rounded-lg bg-white px-6 py-3 font-semibold text-blue-700 shadow-sm ring-1 ring-white/20 transition hover:bg-gray-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-white"
                 download
                 aria-label="Download Resume PDF"
