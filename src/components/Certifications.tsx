@@ -203,7 +203,7 @@ export default function Certifications() {
   className="
     flex w-max snap-x snap-mandatory gap-4 pt-2 
     /* mobile: center the first/last card with equal side gutters */
-    pl-[3.2vw] pr-[5vw]
+    pl-[3.2vw] pr-[2vw]
     /* when the card snaps to 360px on sm, gutters = (100% - 360)/2 */
     sm:pl-3 sm:pr-[calc(50%-180px)]
     md:pl-0 md:pr-0
