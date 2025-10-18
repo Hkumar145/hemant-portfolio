@@ -58,10 +58,10 @@ const SKILLS: Skill[] = [
 const TABS: Array<'All' | Category> = [
   'All',
   'Languages',
+  'Cloud & DevOps',
   'Frontend',
   'Backend',
   'Design',
-  'Cloud & DevOps',
   'Others',
 ];
 
