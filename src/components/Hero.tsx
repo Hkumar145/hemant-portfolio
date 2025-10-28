@@ -6,6 +6,7 @@ const SparkleOrbits = dynamic(() => import('@/components/SparkleOrbits'), { ssr:
 import Image from 'next/image';
 import { TypeAnimation } from 'react-type-animation';
 import { motion, useReducedMotion } from 'framer-motion';
+
 export default function Hero() {
   const reduceMotion = useReducedMotion();
 
@@ -63,6 +64,20 @@ export default function Hero() {
               Full Stack Developer &amp; Cloud Engineer
             </h2>
 
+            {/* MOBILE-ONLY AVATAR (appears above the description) */}
+            <div className="md:hidden mb-6 flex justify-center">
+              <Image
+                src="/profile.png"
+                alt="Portrait of Hemant Kumar"
+                width={220}
+                height={220}
+                priority
+                sizes="(max-width: 768px) 220px"
+                className="rounded-full shadow-xl"
+              />
+            </div>
+
+            {/* Description */}
             <p className="text-base md:text-lg leading-relaxed mb-8 text-white/90">
               <TypeAnimation
                 sequence={[
@@ -77,6 +92,7 @@ export default function Hero() {
               />
             </p>
 
+            {/* CTAs */}
             <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-5">
               <a
                 href="/Hemant_Kumar_Resume.pdf"
@@ -112,12 +128,12 @@ export default function Hero() {
             </div>
           </motion.div>
 
-          {/* Image Column with orbital rings + sparkles */}
+          {/* Image Column with orbital rings + sparkles (DESKTOP ONLY) */}
           <motion.div
             initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, ease: 'easeOut', delay: 0.1 }}
-            className="md:w-1/2 flex justify-center"
+            className="hidden md:flex md:w-1/2 justify-center"
           >
             <div className="relative">
               {/* Halo */}
