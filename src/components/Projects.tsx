@@ -29,7 +29,7 @@ const projects: StarryProject[] = [
     title: "Helpmet - A Site Safety Web App",
     description:
       "A Site Safety app with features like injury reporting, heat maps, equipment checks & more.",
-    link: "https://helpmet.ca/",
+    link: "https://helpmet.onrender.com/",
     github: "https://github.com/Hkumar145/Helpmet",
     image: "/Helpmet.svg",
     skills: [
